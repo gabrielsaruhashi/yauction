@@ -1,0 +1,2 @@
+47 05 * * * python3 ~/workspace/yauction/alert.py
+47 05 * * * /workspace/yauction/alert.py

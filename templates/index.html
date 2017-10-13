@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+    <!-- fill viewport -->
+    <div class="container-fluid">
+        <form id="form">
+            <div class="form-group">
+                <label class="sr-only" for="q">Search</label>
+                <input class="form-control" id="q" placeholder="Search" type="text"/>
+            </div>
+        </form>
+    </div>
+    
+    {% for row in random_rows %}
+        <div class = "product_box">
+            <a href="{{ url_for('itm_page', item_id=row["item_id"]) }}">
+                <img src="{{ url_for('static', filename='images/')}}{{row["item_id"]}}.jpg" onerror="this.src='{{ url_for('static', filename='images/handsomedan.jpg')}}'" class=clipped>
+                <div class = "basic_text">
+                    <h4>{{ row["item_name"] }}</h4>
+                    <p>Current Bid: {{ row["current_bid"] | usd }}</p>
+                </div>
+            </a>
+        </div>
+    {% endfor %}
+    
+{% endblock %}
+
+

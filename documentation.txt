@@ -1,0 +1,66 @@
+Our project grew out of the same concepts we used for Finance, and as such relies on a similar basic framework. 
+
+
+Starting the server
+Starting the server is done in the usual way, by navigating into the project’s home directory (in this case /yauction/) and using the “flask run” command in the terminal. 
+
+
+Creating an account
+Click the link at top center that says “Register.” This will redirect you to the registration page, where you will be asked to input your preferred username, Yale e-mail address, password, and Venmo username. Note that even for testing, a real Yale email is required to receive mail from the email system that we implemented, and a real Venmo username is required for the redirect to function.
+
+
+Logging in
+Click the top banner or the link that says “Login.” This will redirect you to the login page, where you will be asked to provide your username and password. 
+
+
+Index Page 
+This will redirect you to the Index Page, which you can also access by clicking the colorful “YAuction” logo in the top left corner of the screen. This page displays a random sampling of 10 currently active auctions and includes search functionality if you are looking for a specific item. 
+Note that you we leave it to you to sell and bid on items, which will require you to create multiple accounts. This was due to constraints imposed by our implementation of the auction duration timer, and also demonstrates both sides of our functionality well (from both the buyer's and seller's perspective). When testing, if you would like to avoid waiting a day or two for the auctions to expire on their own, note also that you can manually mark them as expired in phpliteadmin by changing the "status" column of entries in the 'items' table from 1 (active) to 0 (expired).  
+Item Page
+Clicking on an item from the Index Page (as well as many other pages) will bring you to the appropriate Item Page. On this page, you can view a variety of information about the item in question, including:
+Item Name
+Description
+Starting Bid (set by the seller)
+Total Number of Bids Placed on the Item
+Current Bid
+Product Image
+Seller’s Username
+Auction Endtime and Date
+If the auction is still live and you are not the seller of the item, you can place a bid on the item. You may also add or remove the item from your watchlist. 
+
+
+My YAuction: 
+Mousing over My YAuction in the navbar will display a drop-down list of pages. These include the following: 
+
+
+My Bids: 
+This page displays all of the items that you are currently bidding on (that are still live). It also informs you of your last bid and the current bid. Clicking on an item will redirect you to that item’s Item Page. 
+
+
+My Auctions: 
+This page displays all of the items that you are currently selling (that are still live). It also informs you of the current bid amount. Clicking on an item will again redirect you to that item’s Item Page. 
+
+
+Watchlist:
+This page displays all of the items that are currently in your watchlist. Using this feature, you may save items that you are interested in following or purchasing, but that you do not yet want to bid on. As always, clicking on an item will redirect you to that item’s Item Page.
+
+
+Purchase History: 
+This page displays all of the items that you have successfully bid on and won. A link is included beneath each item that will redirect you to the seller’s Venmo profile. Unfortunately, Venmo discontinued their API recently so we were not able to integrate it to the extent we would have liked, but using this link and the helpful reminder of the exact sum owed, you can easily make payments. In actual implementation, some payments would likely rely on cash as well. To reflect this, we added the ability to see the seller's email address to contact them. 
+
+
+Sale History: 
+This page displays all of the items that you have put up for sale on YAuctions in the past (that are no longer live). It also displays the winning bidder's email address for ease of communication. 
+
+Sell:
+Next on the navbar you will find the Sell button. Clicking this will redirect you to the Sell Page, where you may enter a name, description, and starting price for your auction item as well as picking your desired duration for the auction and uploading a product image from your device in the .jpg format. If no image is uploaded, a stock image will be used. Feel free to add any listings you would like and explore them via the other pages previously mentioned. 
+
+Logout: 
+Finally, the Logout button in the top right will - of course - log you out from your account and redirect you to the login screen. 
+
+Alert: 
+We tried to implement an emailing system using would let users know when an item that they had bid on would be ending within 24 hours. It functions just fine, but in order for it to work autonomously, we would need to rely on the cron function which is not available in the IDE as far as we can tell. Our attempt relied on the crontab.txt file, which is included. More on this is included in the design section. You can call the function manually by typing “python alert.py” into the terminal, which will email all users who have placed bids on items ending in the next 24 hours.
+
+CronJobs: 
+
+

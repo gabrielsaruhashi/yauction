@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sales
+{% endblock %}
+
+{% block main %}
+    <h2>Past Sales</h2>
+    {% for item in past_sales %}
+        <div class = "product_box">
+            <div class="basic_text">
+                <a href="{{ url_for('itm_page', item_id=item["item_id"]) }}">
+                    <img src="{{ url_for('static', filename='images/')}}{{ item["item_id"] }}.jpg" class=clipped>
+                    <h4> {{ item["item_name"] }} </h4>
+                </a>
+                <p>Winning Bid: {{ item["current_bid"] | usd }}</p>
+                <p> Contact Winning Buyer at <a href="mailto:{{ item["buyer_email"] }}?Subject=Hello%20{{ item["item_name"] }}%20Buyer" target="_top">{{ item["buyer_email"] }}</a></p>
+            </div>
+        </div>
+    {% endfor %}
+    
+{% endblock %}

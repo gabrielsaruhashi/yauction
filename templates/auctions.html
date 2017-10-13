@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    My Account
+{% endblock %}
+
+{% block main %}
+    <h2>Open Auctions</h2>
+    {% for auction in current_auctions %}
+        <div class = "product_box">
+            <a href="{{ url_for('itm_page', item_id=auction["item_id"]) }}">
+                <img src="{{ url_for('static', filename='images/')}}{{auction["item_id"]}}.jpg" onerror="this.src='{{ url_for('static', filename='images/handsomedan.jpg')}}'" class=clipped>
+                <h4>{{ auction["item_name"] }}</h4>
+            </a>
+            <div class="basic_text">
+                <p>Current Bid: {{ auction["current_bid"] | usd }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

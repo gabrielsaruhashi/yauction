@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Watchlist
+{% endblock %}
+
+{% block main %}
+    <h2>Watchlist</h2>
+    {% for item in watchlist_items %}
+        <div class = "product_box">
+            <a href="{{ url_for('itm_page', item_id=item[0]["item_id"]) }}">
+                <img src="{{ url_for('static', filename='images/')}}{{item[0]["item_id"]}}.jpg" onerror="this.src='{{ url_for('static', filename='images/handsomedan.jpg')}}'" class=clipped>
+                <h4> {{ item[0]["item_name"] }} </h4>
+            </a>
+            <div class="basic_text">
+                <p>Current Bid: {{item[0]["current_bid"] | usd}}</p>
+            {% if item[0]["total_bids"] == 1 %}
+                    <p class=basic_text>{{ item[0]["total_bids"] }} bid has been placed on this item!</p>
+            {% else %}
+                    <p>{{ item[0]["total_bids"] }} bids have been placed on this item!</p>
+            {% endif %}
+            </div>
+
+        </div>
+    {% endfor %}
+    
+{% endblock %}

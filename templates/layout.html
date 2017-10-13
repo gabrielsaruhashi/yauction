@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+{% from "macros.html" import nav_link with context %}
+<html lang="en">
+
+    <head>
+
+        <!-- documentation at http://getbootstrap.com/, alternative themes at https://www.bootstrapcdn.com/bootswatch/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet"/>
+
+        <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet"/>
+
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+        
+        <!-- get JQuery -->
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+       
+        <!-- https://github.com/corejavascript/typeahead.js/blob/master/doc/jquery_typeahead.md -->
+        <script src="https://cdn.rawgit.com/corejavascript/typeahead.js/master/dist/typeahead.jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0/handlebars.js"></script>
+
+        <!-- http://stewartjpark.com/Flask-JSGlue/ -->
+        {{ JSGlue.include() }}
+        
+        <!-- app's own JavaScript -->
+        <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+        
+         <!-- app's fonts -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Ek+Mukta">
+        
+
+        
+        <title>YAuction: {% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+                 <div class="container">
+        <div class="menu-wrap">
+            <nav class="menu">
+                
+                {% if session.user_id %}
+                <ul class="clearfix">
+                    <li><a class="menu-brand" href="{{ url_for('index') }}"><span class="blue">Y</span><span class="red">A</span><span class="yellow">u</span><span class="red">c</span><span class="blue">t</span><span class="red">i</span><span class="green">o</span><span class="red">n</span></a></li>
+                    <li>
+                        <a href="#">My YAuction<span class="arrow">&#9660;</span></a>
+         
+                        <ul class="sub-menu">
+                            <li><a href="{{ url_for('my_bids') }}">My Bids</a></li>
+                            <li><a href="{{ url_for('my_auctions') }}">My Auctions</a></li>
+                            <li><a href="{{ url_for('watchlist') }}">Watchlist</a></li>
+                            <li><a href="{{ url_for('history') }}">Purchase History</a></li>
+                            <li><a href="{{ url_for('sales') }}">Sales History</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="{{ url_for('sell') }}">Sell</a></li>
+                    <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                </ul>
+                {% else %}
+                <li><a class="menu-brand" href="{{ url_for('index') }}"><span class="blue">Y</span><span class="red">A</span><span class="yellow">u</span><span class="red">c</span><span class="blue">t</span><span class="red">i</span><span class="green">o</span><span class="red">n</span></a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
+            </nav>
+        </div>
+    
+
+            {% if get_flashed_messages() %}
+                <header>
+                    <div class="alert alert-info" role="alert">
+                        {{ get_flashed_messages() | join(" ") }}
+                    </div>
+                </header>
+            {% endif %}
+
+            <main>
+                {% block main %}{% endblock %}
+            </main>
+            
+        </div>
+    </div>
+    </body>
+
+</html>
+
+

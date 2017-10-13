@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Itm
+{% endblock %}
+
+{% block main %}
+     <form action="{{ url_for('itm_page', item_id=item_row[0]["item_id"]) }}" method="post">
+        <fieldset>
+            {% if item_status == 1%}
+                <div class="form-group">
+                    <input autocomplete="off" autofocus class="form-control" name="place_bid" placeholder="Bid Amount" id="frbid" type="text"/>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-info" name="btn" type="submit" value="bid">Bid</button>
+                </div>
+            {% endif %}
+            {% if watchlist_status == 1 %}
+                <div class="form-group">
+                    <button class="btn btn-info" name="btn" type="submit" value="watchlist">Remove from Watchlist</button>
+                </div>
+            {% elif watchlist_status == 0 %}
+                <div class="form-group">
+                    <button class="btn btn-info" name="btn" type="submit" value="watchlist">Add to Watchlist</button>
+                </div>
+            {% endif %} 
+           
+        </fieldset>
+    </form>
+    
+    
+    <table class="table table-striped">
+    
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Description</th>
+                <th>Starting Bid</th>
+                <th>Total Bids</th>
+                <th>Current Bid</th>
+                <th>Image</th>
+                <th>Seller</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            <tr>
+                <td>{{ item_row[0]["item_name"] }}</td>
+                <td>{{ item_row[0]["description"] }}</td>
+                <td>{{ item_row[0]["start_bid"] | usd }}</td>
+                <td>{{ item_row[0]["total_bids"] }}</td>
+                <td>{{ item_row[0]["current_bid"] | usd }}</td>
+                <td> <img alt="Product Image" src="{{ url_for('static', filename='images/')}}{{item_row[0]["item_id"]}}.jpg" onerror="this.src='{{ url_for('static', filename='images/handsomedan.jpg')}}'" width="400" height="400">
+                </td>
+                <td>{{ seller_name }}</td>
+            </tr>
+        </tbody>
+        
+        <tfoot>
+            <tr>
+                <td colspan="5">This auction will close at {{ item_row[0]["timestamp_end"] }} UTC.</td>
+            </tr>
+        </tfoot>
+    </table>
+    
+    
+{% endblock %}
+
+
+
